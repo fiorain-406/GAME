@@ -5,33 +5,112 @@
 <meta name="viewport" content="width=1200">
 <title>목화농장 내전 관리 사이트</title>
 <style>
-  body { font-family: Arial, sans-serif; padding:20px; background:#000; color:#fff; width:1200px; margin:0 auto; overflow-x:hidden; }
-  h1 { text-align:center; }
-  .button-container { text-align:center; margin:20px 0; }
-  .button-container button { margin:0 10px; padding:10px 20px; font-size:16px; border:none; border-radius:5px; cursor:pointer; background:#444; color:#fff; }
-  .button-container button:hover { background:#666; }
-  table { width:100%; border-collapse:collapse; margin-top:20px; }
-  th, td { border:1px solid #444; padding:8px; text-align:center; }
-  th { background:#222; }
-  tr:nth-child(even) { background:#111; }
-  .tab-content { display:none; }
-  .tab-content.active { display:block; }
-  .team-container { display:flex; justify-content:center; gap:80px; margin-top:30px; }
-  .team { display:flex; flex-direction:column; align-items:center; }
-  .player-input { margin:5px 0; position:relative; }
-  .player-input input { width:150px; padding:6px 8px; border-radius:5px; border:1px solid #444; text-align:center; cursor:text; }
-  .autocomplete-items div { padding:5px; cursor:pointer; }
-  .autocomplete-items div:hover { background-color:#666; }
-  .balance-table { margin:40px auto 0; border-collapse:collapse; text-align:center; width:auto; table-layout:fixed; }
-  .balance-table td, .balance-table th { border:1px solid #444; padding:8px; height:36px; }
-  .balance-table th { background-color:#222; }
-  .balance-table tr:nth-child(even) td { background-color:#111; }
-  .balance-table tr:nth-child(odd) td { background-color:#222; }
-  .balance-table th.blue { color:#3399ff; }
-  .balance-table th.red  { color:#ff4d4d; }
-  .decide-container { text-align:center; margin:20px 0; }
-  .decide-container button { padding:10px 20px; font-size:16px; border:none; border-radius:5px; cursor:pointer; background:#444; color:#fff; }
-  .decide-container button:hover { background:#666; }
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #000;
+    color: #fff;
+    width: 1200px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+  h1 { text-align: center; }
+  .button-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .button-container button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #444;
+    color: #fff;
+  }
+  .button-container button:hover { background: #666; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: center;
+  }
+  th { background: #222; }
+  tr:nth-child(even) { background: #111; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .team-container {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 30px;
+  }
+  .team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .player-input { margin: 5px 0; position: relative; }
+  .player-input input {
+    width: 150px;
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    text-align: center;
+    cursor: text;
+  }
+
+  .autocomplete-items div {
+    padding: 5px;
+    cursor: pointer;
+  }
+  .autocomplete-items div:hover {
+    background-color: #666;
+  }
+
+  .balance-table {
+    margin: 40px auto 0;
+    border-collapse: collapse;
+    text-align: center;
+    width: auto;
+    table-layout: fixed;
+  }
+  .balance-table td, .balance-table th {
+    border: 1px solid #444;
+    padding: 8px;
+    height: 36px;
+  }
+  .balance-table th {
+    background-color: #222;
+  }
+  .balance-table tr:nth-child(even) td { background-color: #111; }
+  .balance-table tr:nth-child(odd) td { background-color: #222; }
+  .balance-table th.blue { color: #3399ff; }
+  .balance-table th.red  { color: #ff4d4d; }
+
+  /* 결정 버튼 */
+  .decide-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .decide-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #444;
+    color: #fff;
+  }
+  .decide-container button:hover { background: #666; }
 </style>
 </head>
 <body>
@@ -46,7 +125,15 @@
   <table id="dashboard-table">
     <thead>
       <tr>
-        <th>이름</th><th>롤 닉네임</th><th>레이팅</th><th>티어</th><th>주라인</th><th>부라인</th><th>승리</th><th>패배</th><th>승률</th>
+        <th>이름</th>
+        <th>롤 닉네임</th>
+        <th>레이팅</th>
+        <th>티어</th>
+        <th>주라인</th>
+        <th>부라인</th>
+        <th>승리</th>
+        <th>패배</th>
+        <th>승률</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -59,13 +146,17 @@
     <div class="team red-team"></div>
   </div>
 
+  <!-- 결정 버튼 -->
   <div class="decide-container">
     <button onclick="decideTeams()">결정</button>
   </div>
 
   <table class="balance-table">
     <thead>
-      <tr><th class="blue">블루팀</th><th class="red">레드팀</th></tr>
+      <tr>
+        <th class="blue">블루팀</th>
+        <th class="red">레드팀</th>
+      </tr>
     </thead>
     <tbody>
       <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -78,129 +169,198 @@
 </div>
 
 <script>
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSwflUbE_HhC2TNMfqQwaisirY3dGJSyx9DQt_Z0H9lpS09v55jNADGfH5P66Q80IjTIfSiPhHKL26-/pub?gid=0&single=true&output=csv';
-let playerNames = [], ratingMap = {};
-
 function showTab(id) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   setTimeout(syncColumnWidth, 50);
 }
 
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSwflUbE_HhC2TNMfqQwaisirY3dGJSyx9DQt_Z0H9lpS09v55jNADGfH5P66Q80IjTIfSiPhHKL26-/pub?gid=0&single=true&output=csv';
+let playerNames = [];
+let ratingMap = {};
+
 async function loadSheetData() {
   try {
-    const data = await (await fetch(sheetUrl)).text();
+    const res = await fetch(sheetUrl);
+    const data = await res.text();
     const rows = data.trim().split('\n').map(r => r.split(','));
     const tbody = document.querySelector('#dashboard tbody');
     tbody.innerHTML = '';
-    playerNames = []; ratingMap = {};
 
-    rows.slice(1).forEach(([name, nickname, rating, tier, main, sub, win, lose]) => {
+    playerNames = [];
+    ratingMap = {};
+
+    rows.slice(1).forEach(row => {
+      const [name, nickname, rating, tier, main, sub, win, lose] = row;
       playerNames.push(name);
       ratingMap[name] = parseInt(rating) || 0;
-      const winNum = parseInt(win)||0, loseNum=parseInt(lose)||0;
-      const rate = winNum+loseNum ? ((winNum/(winNum+loseNum))*100).toFixed(1)+'%' : '-';
+
+      const winNum = parseInt(win) || 0;
+      const loseNum = parseInt(lose) || 0;
+      const total = winNum + loseNum;
+      const rate = total ? ((winNum / total) * 100).toFixed(1) + '%' : '-';
+
       const tr = document.createElement('tr');
-      [name,nickname,rating,tier,main,sub,win,lose,rate].forEach(txt => { const td=document.createElement('td'); td.textContent=txt; tr.appendChild(td); });
+      [name, nickname, rating, tier, main, sub, win, lose, rate].forEach(text => {
+        const td = document.createElement('td');
+        td.textContent = text;
+        tr.appendChild(td);
+      });
       tbody.appendChild(tr);
     });
 
     setupAutocomplete();
-    setTimeout(syncColumnWidth,100);
-  } catch(err) { console.error('시트 데이터 로딩 실패:', err); }
+    setTimeout(syncColumnWidth, 100);
+  } catch (err) {
+    console.error('시트 데이터 로딩 실패:', err);
+  }
 }
 
 function setupAutocomplete() {
   const inputs = Array.from(document.querySelectorAll('.player-input input'));
+
   inputs.forEach(input => {
     input.addEventListener('input', function() {
       closeAllLists();
-      const val=this.value.trim().toLowerCase();
-      const list=document.createElement('div');
-      list.className='autocomplete-items';
-      Object.assign(list.style,{position:'absolute',backgroundColor:'#222',border:'1px solid #444',zIndex:'99',width:this.offsetWidth+'px'});
+      const val = this.value.trim().toLowerCase();
+      const list = document.createElement('div');
+      list.setAttribute('class', 'autocomplete-items');
+      list.style.position = 'absolute';
+      list.style.backgroundColor = '#222';
+      list.style.border = '1px solid #444';
+      list.style.zIndex = '99';
+      list.style.width = this.offsetWidth + 'px';
       this.parentNode.appendChild(list);
-      const usedNames = inputs.filter(i=>i!==input).map(i=>i.value.trim()).filter(Boolean);
-      playerNames.filter(name=> (val===''||name.toLowerCase().includes(val)) && !usedNames.includes(name))
-        .forEach(name=>{
-          const item=document.createElement('div'); item.textContent=name;
-          item.addEventListener('click',()=>{ input.value=name; closeAllLists(); });
+
+      const usedNames = inputs
+        .filter(i => i !== input)
+        .map(i => i.value.trim())
+        .filter(v => v);
+
+      playerNames.forEach(name => {
+        if ((val === '' || name.toLowerCase().includes(val)) && !usedNames.includes(name)) {
+          const item = document.createElement('div');
+          item.textContent = name;
+          item.addEventListener('click', () => {
+            input.value = name;
+            closeAllLists();
+          });
           list.appendChild(item);
-        });
+        }
+      });
     });
-    input.addEventListener('focus',()=>input.dispatchEvent(new Event('input')));
-    input.addEventListener('blur',()=>setTimeout(closeAllLists,120));
+
+    input.addEventListener('focus', function() {
+      this.dispatchEvent(new Event('input'));
+    });
+
+    input.addEventListener('blur', () => {
+      setTimeout(closeAllLists, 120);
+    });
   });
 }
 
-function closeAllLists(){ document.querySelectorAll('.autocomplete-items').forEach(el=>el.remove()); }
+function closeAllLists() {
+  document.querySelectorAll('.autocomplete-items').forEach(el => el.remove());
+}
 
 function syncColumnWidth() {
-  const dashboardTable=document.getElementById('dashboard-table');
-  if(!dashboardTable) return;
-  const ths=dashboardTable.querySelectorAll('thead th');
-  if(ths.length<2) return;
-  const width=ths[1].offsetWidth+'px';
-  const balanceTable=document.querySelector('.balance-table');
-  if(!balanceTable) return;
-  const [leftTh,rightTh]=balanceTable.querySelectorAll('thead th');
-  leftTh.style.width=rightTh.style.width=width;
-  balanceTable.querySelectorAll('tbody tr').forEach(row=>{
-    if(row.children.length>=2){ row.children[0].style.width=row.children[1].style.width=width; }
+  const dashboardTable = document.getElementById('dashboard-table');
+  if (!dashboardTable) return;
+
+  const ths = dashboardTable.querySelectorAll('thead th');
+  if (ths.length < 2) return;
+
+  const nicknameTh = ths[1];
+  const width = nicknameTh.offsetWidth;
+  if (!width) return;
+
+  const balanceTable = document.querySelector('.balance-table');
+  if (!balanceTable) return;
+
+  const leftWidth = width + 'px';
+  const rightWidth = width + 'px';
+
+  const balanceThs = balanceTable.querySelectorAll('thead th');
+  if (balanceThs.length >= 2) {
+    balanceThs[0].style.width = leftWidth;
+    balanceThs[1].style.width = rightWidth;
+  }
+
+  const rows = balanceTable.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    if (row.children.length >= 2) {
+      row.children[0].style.width = leftWidth;
+      row.children[1].style.width = rightWidth;
+    }
   });
 }
 
-function createPlayerInputs(teamSelector){
-  const teamDiv=document.querySelector(teamSelector);
-  for(let i=1;i<=5;i++){
-    const div=document.createElement('div');
-    div.className='player-input';
-    const input=document.createElement('input'); input.type='text'; input.placeholder=`플레이어 ${i}`;
+function createPlayerInputs(teamSelector) {
+  const teamDiv = document.querySelector(teamSelector);
+  for (let i = 1; i <= 5; i++) {
+    const div = document.createElement('div');
+    div.className = 'player-input';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = `플레이어 ${i}`;
     div.appendChild(input);
     teamDiv.appendChild(div);
   }
 }
 
-function decideTeams(){
-  const inputs=Array.from(document.querySelectorAll('.player-input input'));
-  const names=inputs.map(i=>i.value.trim()).filter(v=>v&&ratingMap[v]!==undefined);
-  if(names.length<10) return alert('플레이어 10명을 모두 입력해주세요.');
-  const players=names.map(name=>({name,rating:ratingMap[name]}));
+/* 팀 자동 배정 함수 */
+function decideTeams() {
+  const inputs = Array.from(document.querySelectorAll('.player-input input'));
+  const names = inputs.map(i => i.value.trim()).filter(v => v && ratingMap[v] !== undefined);
 
-  function combinations(arr,k){
-    if(k===0) return [[]];
-    if(arr.length<k) return [];
-    const [first,...rest]=arr;
-    return [...combinations(rest,k), ...combinations(rest,k-1).map(c=>[first,...c])];
+  if (names.length < 10) return alert('플레이어 10명을 모두 입력해주세요.');
+
+  const players = names.map(name => ({ name, rating: ratingMap[name] }));
+
+  function combinations(arr, k) {
+    if (k === 0) return [[]];
+    if (arr.length < k) return [];
+    const [first, ...rest] = arr;
+    const without = combinations(rest, k);
+    const withFirst = combinations(rest, k - 1).map(c => [first, ...c]);
+    return [...withFirst, ...without];
   }
 
-  let best=null,bestDiff=Infinity;
-  for(const blue of combinations(players,5)){
-    const red=players.filter(p=>!blue.includes(p));
-    const blueAvg=blue.reduce((a,b)=>a+b.rating,0)/5;
-    const redAvg=red.reduce((a,b)=>a+b.rating,0)/5;
-    const diff=Math.abs(blueAvg-redAvg);
-    if(diff<bestDiff){ bestDiff=diff; best={blue,red,blueAvg,redAvg}; }
-  }
+  let best = null;
+  let bestDiff = Infinity;
 
-  if(best){
-    const rows=document.querySelectorAll('.balance-table tbody tr');
-    for(let i=0;i<5;i++){
-      rows[i].children[0].textContent=`${best.blue[i].name} (${best.blue[i].rating})`;
-      rows[i].children[1].textContent=`${best.red[i].name} (${best.red[i].rating})`;
+  for (const blue of combinations(players, 5)) {
+    const red = players.filter(p => !blue.includes(p));
+    const blueAvg = blue.reduce((a, b) => a + b.rating, 0) / 5;
+    const redAvg = red.reduce((a, b) => a + b.rating, 0) / 5;
+    const diff = Math.abs(blueAvg - redAvg);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = { blue, red, blueAvg, redAvg };
     }
-    document.querySelector('.balance-table th.blue').textContent=`블루팀 (${Math.round(best.blueAvg)})`;
-    document.querySelector('.balance-table th.red').textContent=`레드팀 (${Math.round(best.redAvg)})`;
   }
-}
 
-window.addEventListener('resize',()=>setTimeout(syncColumnWidth,50));
-window.onload=function(){
+  if (best) {
+    const rows = document.querySelectorAll('.balance-table tbody tr');
+    for (let i = 0; i < 5; i++) {
+      rows[i].children[0].textContent = `${best.blue[i].name} (${best.blue[i].rating})`;
+      rows[i].children[1].textContent = `${best.red[i].name} (${best.red[i].rating})`;
+    }
+    document.querySelector('.balance-table th.blue').textContent = `블루팀 (${Math.round(best.blueAvg)})`;
+    document.querySelector('.balance-table th.red').textContent = `레드팀 (${Math.round(best.redAvg)})`;
+  }
+} 
+
+window.addEventListener('resize', () => setTimeout(syncColumnWidth, 50));
+
+window.onload = function() {
   createPlayerInputs('.blue-team');
   createPlayerInputs('.red-team');
   loadSheetData();
-  setTimeout(syncColumnWidth,300);
+  setTimeout(syncColumnWidth, 300);
 };
 </script>
 </body>
 </html>
+
