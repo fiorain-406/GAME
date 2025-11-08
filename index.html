@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1200">
-<title>목화농장 내전 관리 사이트</title>
+<title>게임 전적 대시보드</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -114,7 +114,7 @@
 </style>
 </head>
 <body>
-<h1>목화농장 내전 관리 사이트</h1>
+<h1>게임 전적 대시보드</h1>
 
 <div class="button-container">
   <button onclick="showTab('dashboard')">대시보드</button>
@@ -341,16 +341,16 @@ function decideTeams() {
     }
   }
 
-  if (best) {
-    const rows = document.querySelectorAll('.balance-table tbody tr');
-    for (let i = 0; i < 5; i++) {
-      rows[i].children[0].textContent = best.blue[i].name;
-      rows[i].children[1].textContent = best.red[i].name;
-    }
-    document.querySelector('.balance-table th.blue').textContent = `블루팀 (${Math.round(best.blueAvg)})`;
-    document.querySelector('.balance-table th.red').textContent = `레드팀 (${Math.round(best.redAvg)})`;
+if (best) {
+  const rows = document.querySelectorAll('.balance-table tbody tr');
+  for (let i = 0; i < 5; i++) {
+    rows[i].children[0].textContent = `${best.blue[i].name} (${best.blue[i].rating})`;
+    rows[i].children[1].textContent = `${best.red[i].name} (${best.red[i].rating})`;
   }
+  document.querySelector('.balance-table th.blue').textContent = `블루팀 (${Math.round(best.blueAvg)})`;
+  document.querySelector('.balance-table th.red').textContent = `레드팀 (${Math.round(best.redAvg)})`;
 }
+
 
 window.addEventListener('resize', () => setTimeout(syncColumnWidth, 50));
 
@@ -363,5 +363,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
-
-
