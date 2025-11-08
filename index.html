@@ -341,16 +341,16 @@ function decideTeams() {
     }
   }
 
-if (best) {
-  const rows = document.querySelectorAll('.balance-table tbody tr');
-  for (let i = 0; i < 5; i++) {
-    rows[i].children[0].textContent = `${best.blue[i].name} (${best.blue[i].rating})`;
-    rows[i].children[1].textContent = `${best.red[i].name} (${best.red[i].rating})`;
+  if (best) {
+    const rows = document.querySelectorAll('.balance-table tbody tr');
+    for (let i = 0; i < 5; i++) {
+      rows[i].children[0].textContent = `${best.blue[i].name} (${best.blue[i].rating})`;
+      rows[i].children[1].textContent = `${best.red[i].name} (${best.red[i].rating})`;
+    }
+    document.querySelector('.balance-table th.blue').textContent = `블루팀 (${Math.round(best.blueAvg)})`;
+    document.querySelector('.balance-table th.red').textContent = `레드팀 (${Math.round(best.redAvg)})`;
   }
-  document.querySelector('.balance-table th.blue').textContent = `블루팀 (${Math.round(best.blueAvg)})`;
-  document.querySelector('.balance-table th.red').textContent = `레드팀 (${Math.round(best.redAvg)})`;
-}
-
+} 
 
 window.addEventListener('resize', () => setTimeout(syncColumnWidth, 50));
 
@@ -363,3 +363,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+
